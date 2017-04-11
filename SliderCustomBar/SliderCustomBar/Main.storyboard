@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ut1-qF-LN6">
+                                <rect key="frame" x="35.5" y="318.5" width="304" height="31"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="Rk8-yc-LuE"/>
+                                </constraints>
+                            </slider>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbO-N2-Lwb">
+                                <rect key="frame" x="164" y="390" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="2yz-Ke-8se"/>
+                                    <constraint firstAttribute="width" constant="46" id="n3z-Zo-T3a"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="tnf-b5-K6l">
+                                <rect key="frame" x="35.5" y="288.5" width="304" height="31"/>
+                            </slider>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="ut1-qF-LN6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0dF-CV-9Ch"/>
+                            <constraint firstItem="bbO-N2-Lwb" firstAttribute="top" secondItem="ut1-qF-LN6" secondAttribute="bottom" constant="41.5" id="BDZ-Xi-seD"/>
+                            <constraint firstItem="ut1-qF-LN6" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="CEv-h6-xIs"/>
+                            <constraint firstItem="tnf-b5-K6l" firstAttribute="width" secondItem="ut1-qF-LN6" secondAttribute="width" id="ENd-Pg-VJc"/>
+                            <constraint firstItem="tnf-b5-K6l" firstAttribute="height" secondItem="ut1-qF-LN6" secondAttribute="height" id="KHL-BA-q2C"/>
+                            <constraint firstItem="tnf-b5-K6l" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UD4-rM-Iji"/>
+                            <constraint firstItem="bbO-N2-Lwb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pv1-04-4z4"/>
+                            <constraint firstItem="ut1-qF-LN6" firstAttribute="top" secondItem="tnf-b5-K6l" secondAttribute="bottom" id="uuq-oY-4um"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btnSelectedValue" destination="bbO-N2-Lwb" id="Y0n-SV-1t0"/>
+                        <outlet property="slider" destination="ut1-qF-LN6" id="Jeh-gE-mqQ"/>
+                        <outlet property="sliderSecond" destination="tnf-b5-K6l" id="Dza-qh-4gA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
