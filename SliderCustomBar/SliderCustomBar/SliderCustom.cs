@@ -115,7 +115,8 @@ namespace SliderCustomBar
 
 		private void ChangeSliderBackgroundThumb(int position)
 		{
-			var img = UIImage.FromFile(ItemsSource[position]);
+			var img1 = UIImage.FromFile(ItemsSource[position]);
+			var img = DrawText(img1, "Text" + position.ToString(), UIColor.Blue, 18);
 			sliderBackground.SetThumbImage(img, UIControlState.Normal);
 		}
 
@@ -130,7 +131,78 @@ namespace SliderCustomBar
 			}
 		}
 
+		private UIImage DrawText(UIImage uiImage, string sText, UIColor textColor, int iFontSize)
+		{
+			nfloat fWidth = uiImage.Size.Width;
+			nfloat fHeight = uiImage.Size.Height;
 
+			uiImage = GetColoredImage(uiImage, UIColor.White);
+
+			CGColorSpace colorSpace = CGColorSpace.CreateDeviceRGB();
+
+			using (CGBitmapContext ctx = new CGBitmapContext(IntPtr.Zero, (nint)fWidth, (nint)fHeight, 8, 4 * (nint)fWidth, CGColorSpace.CreateDeviceRGB(), CGImageAlphaInfo.PremultipliedFirst)) {
+				ctx.DrawImage(new CGRect(0, 0, (double)fWidth, (double)fHeight), uiImage.CGImage);
+
+				ctx.SelectFont("Helvetica", iFontSize, CGTextEncoding.MacRoman);
+
+				//Measure the text's width - This involves drawing an invisible string to calculate the X position difference
+				float start, end, textWidth;
+
+				//Get the texts current position
+				start = (float)ctx.TextPosition.X;
+				//Set the drawing mode to invisible
+				ctx.SetTextDrawingMode(CGTextDrawingMode.Invisible);
+				//Draw the text at the current position
+				ctx.ShowText(sText);
+				//Get the end position
+				end = (float)ctx.TextPosition.X;
+				//Subtract start from end to get the text's width
+				textWidth = end - start;
+
+				nfloat fRed;
+				nfloat fGreen;
+				nfloat fBlue;
+				nfloat fAlpha;
+				//Set the fill color to black. This is the text color.
+				textColor.GetRGBA(out fRed, out fGreen, out fBlue, out fAlpha);
+				ctx.SetFillColor(fRed, fGreen, fBlue, fAlpha);
+
+				//Set the drawing mode back to something that will actually draw Fill for example
+				ctx.SetTextDrawingMode(CGTextDrawingMode.Fill);
+
+				//Draw the text at given coords.
+				ctx.ShowTextAtPoint((int)(((double)fWidth / 2) - (textWidth / 2)), 17, sText);
+
+				return UIImage.FromImage(ctx.ToImage());
+			}
+		}
+
+		private UIImage GetColoredImage(UIImage image, UIColor color)
+		{
+			UIImage coloredImage = null;
+
+			UIGraphics.BeginImageContext(image.Size);
+			using (CGContext context = UIGraphics.GetCurrentContext()) {
+
+				context.TranslateCTM(0, image.Size.Height);
+				context.ScaleCTM(1.0f, -1.0f);
+
+				var rect = new RectangleF(0, 0, (float)image.Size.Width, (float)image.Size.Height);
+
+				// draw image, (to get transparancy mask)
+				context.SetBlendMode(CGBlendMode.Normal);
+				context.DrawImage(rect, image.CGImage);
+
+				// draw the color using the sourcein blend mode so its only draw on the non-transparent pixels
+				context.SetBlendMode(CGBlendMode.SourceIn);
+				context.SetFillColor(color.CGColor);
+				context.FillRect(rect);
+
+				coloredImage = UIGraphics.GetImageFromCurrentImageContext();
+				UIGraphics.EndImageContext();
+			}
+			return coloredImage;
+		}
 
 	}
 }

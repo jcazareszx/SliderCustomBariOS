@@ -120,6 +120,7 @@
     <BundleResource Include="Resources\sliderthumb5.png" />
     <BundleResource Include="Resources\sliderthumb6.png" />
     <BundleResource Include="Resources\sliderthumb7.png" />
+    <BundleResource Include="Resources\white.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
