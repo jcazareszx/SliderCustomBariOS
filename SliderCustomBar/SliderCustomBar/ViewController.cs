@@ -21,7 +21,8 @@ namespace SliderCustomBar
 			string[] imagesArray = new string[] {"sliderthumb1.png","sliderthumb2.png",
 										"sliderthumb3.png","sliderthumb4.png","sliderthumb5.png",
 										"sliderthumb6.png","sliderthumb7.png" };
-			sCustom = new SliderCustom(slider, sliderSecond, imagesArray);
+
+			sCustom = new SliderCustom(slider, sliderSecond, imagesArray, imagesArray, UIColor.Green, 18, 15);
 			sCustom.AddEvents();
 
 			btnSelectedValue.TouchUpInside += BtnSelectedValue_TouchUpInside;

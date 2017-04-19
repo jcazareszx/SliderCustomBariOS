@@ -15,15 +15,24 @@ namespace SliderCustomBar
 		public int SelectedValue { get; private set; }
 
 		public string[] ItemsSource { get; private set; }
+		public string[] ItemsText { get; private set; }
+		public UIColor TextColor { get; private set; }
+		public int TextSize { get; private set; }
+		public int SpaceBetweenTextAndSlider { get; private set; }
 
 		public int BlockedItem { get; private set; }
 
-		public SliderCustom(UISlider slider, UISlider sliderBackground, string[] itemsSource, int blockedItem = 0)
+		public SliderCustom(UISlider slider, UISlider sliderBackground, string[] itemsSource,
+								string[] itemsText, UIColor textColor, int textSize, int spaceBetweenTextAndSlider, int blockedItem = 0)
 		{
 			this.slider = slider;
 			this.slider.MinValue = 0;
 			this.slider.MaxValue = itemsSource.Count() - 1;
 			this.ItemsSource = itemsSource;
+			this.ItemsText = itemsText;
+			this.TextColor = textColor;
+			this.TextSize = textSize;
+			this.SpaceBetweenTextAndSlider = spaceBetweenTextAndSlider;
 			this.BlockedItem = blockedItem;
 			this.slider.Value = blockedItem;
 			this.slider.MinimumTrackTintColor = UIColor.LightGray;
@@ -116,7 +125,7 @@ namespace SliderCustomBar
 		private void ChangeSliderBackgroundThumb(int position)
 		{
 			var img1 = UIImage.FromFile(ItemsSource[position]);
-			var img = DrawText(img1, "Text" + position.ToString(), UIColor.Blue, 18);
+			var img = DrawText(img1, ItemsText[position], TextColor, TextSize);
 			sliderBackground.SetThumbImage(img, UIControlState.Normal);
 		}
 
@@ -138,9 +147,9 @@ namespace SliderCustomBar
 
 			uiImage = GetColoredImage(uiImage, UIColor.White);
 
-			CGColorSpace colorSpace = CGColorSpace.CreateDeviceRGB();
-
-			using (CGBitmapContext ctx = new CGBitmapContext(IntPtr.Zero, (nint)fWidth, (nint)fHeight, 8, 4 * (nint)fWidth, CGColorSpace.CreateDeviceRGB(), CGImageAlphaInfo.PremultipliedFirst)) {
+			using (CGBitmapContext ctx = new CGBitmapContext(IntPtr.Zero, (nint)fWidth, 
+					(nint)fHeight, 8, 4 * (nint)fWidth, CGColorSpace.CreateDeviceRGB(), CGImageAlphaInfo.PremultipliedFirst)) {
+					
 				ctx.DrawImage(new CGRect(0, 0, (double)fWidth, (double)fHeight), uiImage.CGImage);
 
 				ctx.SelectFont("Helvetica", iFontSize, CGTextEncoding.MacRoman);
@@ -171,7 +180,7 @@ namespace SliderCustomBar
 				ctx.SetTextDrawingMode(CGTextDrawingMode.Fill);
 
 				//Draw the text at given coords.
-				ctx.ShowTextAtPoint((int)(((double)fWidth / 2) - (textWidth / 2)), 17, sText);
+				ctx.ShowTextAtPoint((int)(((double)fWidth / 2) - (textWidth / 2)), SpaceBetweenTextAndSlider, sText);
 
 				return UIImage.FromImage(ctx.ToImage());
 			}
